@@ -7,7 +7,7 @@ import SearchResults from './components/SearchResults';
 import { getMovies } from './components/movieApi';
 import Layout from './components/Layout';
 
-function Home() {
+function SearchContainer() {
 
   const [movieResults, setMovieResults] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
@@ -34,17 +34,26 @@ function Home() {
   };
 
   return (
-    <Layout>
     <div className={css(styles.app)}>
-      Welcome to the app
-
-      </div>
-    </Layout>
-
+      <Layout>
+        <SearchForm
+          submitGetMovies={submitGetMovies}
+          movieResults={movieResults}
+          setMovieResults={setMovieResults}
+        />
+        <SearchResults
+          movieResults={movieResults}
+          savedMovies={savedMovies}
+          setSavedMovies={setSavedMovies}
+          submitGetMovies={submitGetMovies}
+          searchQuery={searchQuery}
+        />
+      </Layout>
+    </div>
   );
 }
 
-export default Home;
+export default SearchContainer;
 
 const styles = StyleSheet.create({
   app: {

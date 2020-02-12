@@ -30,4 +30,4 @@ React is constantly changing and we like to stay up to date, so please no class 
 
 Morever we have set up eslint to help you use hooks and other React best practices, so don't ignore it.
 
-This isn't meant to take longer than a few hours. If you get stuck on anything feel free to email us at nick@fitt.co or ian@fitt.co
+This isn't meant to take longer than a few hours. If you get stuck on anything feel free to email us.
