@@ -1,15 +1,12 @@
-import React, {useEffect, useState}  from 'react';
+import { useContext }  from 'react';
 import { StyleSheet, css } from 'aphrodite/no-important';
+import MovieContext from '../dataAccess/MovieContext';
 
-export default function MovieItem(props) {
-  const [userInput, setUserInput] = useState(0);
-
+const MovieItem = (props) => {
+  const { setSavedMovies } = useContext(MovieContext);
   const handleClick = (event) => {
-    let test = props.savedMovies.find( x => {
-      return x.imdbID === props.movie.imdbID;
-    });
-    if (!test) {
-      props.setSavedMovies([...props.savedMovies, props.movie]);
+    if (props.movie) { //make click available only on search results page
+      setSavedMovies(props.movie);
     }
   };
 
@@ -18,15 +15,15 @@ export default function MovieItem(props) {
       <img src={props.poster} className={css(styles.image)} />
     </div>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
-    width: '90vw',
+    width: 'auto',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    flexDirection: 'column',
+    flexDirection: 'row',
     flexWrap: 'wrap',
     margin: '5px',
     overflow: 'hidden'
@@ -41,3 +38,5 @@ const styles = StyleSheet.create({
     }
   },
 });
+
+export default MovieItem;
