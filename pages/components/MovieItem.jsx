@@ -6,6 +6,8 @@ const MovieItem = (props) => {
   const { setSavedMovies } = useContext(MovieContext);
   const handleClick = (event) => {
     if (props.movie) { //make click available only on search results page
+      const now = new Date().getTime();
+      props.movie.now = now;
       setSavedMovies(props.movie);
     }
   };

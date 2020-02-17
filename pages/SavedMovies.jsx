@@ -11,6 +11,19 @@ const SavedMovies = () => {
     setSavedMovies('clear');
   };
 
+  const sortMovies = (sortType) => {
+    const sortFunc = (a, b) => {
+      if (sortType === 'Year' || sortType === 'now') {
+        return a[sortType] - b[sortType];
+      } else if (sortType === "Title") {
+        return (a[sortType] || '').localeCompare(b[sortType] || '');
+      }
+    };
+
+    const newMovies = savedMovies.sort(sortFunc);
+    setSavedMovies(newMovies);
+  }
+
   if (savedMovies && savedMovies.length > 0) {
     let movieResults = savedMovies.map(movie => {
       return (
@@ -28,6 +41,9 @@ const SavedMovies = () => {
         <div className={css(styles.container)}>
         <h2 className={css(styles.header)}>Your Saved Films</h2>
         <button onClick={clearMovies} className={css(styles.clearButton)}>Clear All</button>
+        <button onClick={() => sortMovies('Title')} className={css(styles.clearButton)}>Sort Title</button>
+        <button onClick={() => sortMovies('now')} className={css(styles.clearButton)}>Sort Saved Time</button>
+        <button onClick={() => sortMovies('Year')} className={css(styles.clearButton)}>Sort Year</button>
           <div className={css(styles.innerContainer)}>
             <div className={css(styles.resultsContainer)}>
               {movieResults}
