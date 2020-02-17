@@ -4,14 +4,14 @@ import { useInView, InView } from 'react-intersection-observer'
 import MovieItem from './MovieItem';
 import LoadingLogo from './LoadingLogo';
 
-export default function SearchResults(props) {
+const SearchResults = (props) => {
   const [ref, inView, entry] = useInView({
-    rootMargin: '0px 100px',
+    rootMargin: '50px 0px',
     threshold: 1,
   });
 
-  const submitGetMovies = () => {
-    if (props.searchQuery.searchTitle) {
+  const submitGetMovies = (inView) => {
+    if (props.searchQuery.searchTitle && inView) {
       props.submitGetMovies({
         searchTitle: props.searchQuery.searchTitle,
         page: props.searchQuery.page + 1
@@ -35,34 +35,36 @@ export default function SearchResults(props) {
     });
     return (
       <div className={css(styles.container)}>
-        <div className="movieWrapper" inView={inView}>
-          { props.showLoading ?
-            <LoadingLogo />
-            :
+        { props.showLoading ?
+          <LoadingLogo />
+          :
+          <div className="movieWrapper" inView={inView}>
             <div ref={ref} className={css(styles.resultsContainer)} >
               {movieResults}
-              <EndOfList
-                submitGetMovies={submitGetMovies}
-              />
             </div>
-          }
-        </div>
+            <EndOfList
+              submitGetMovies={submitGetMovies}
+            />
+          </div>
+        }
       </div>
     );
   } else {
     return null;
   }
-}
+};
 
 const EndOfList = (props) => {
   return (
-    <InView as="div" onChange={(inView, entry) => props.submitGetMovies()} />
+    <InView as="div"
+      onChange={(inView, entry) => props.submitGetMovies(inView)}
+    />
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    height: '600px',
+    height: '100%',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -74,6 +76,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     flexDirection: 'column',
     alignItems: 'center',
-    flex: 1
   },
 });
+
+export default SearchResults;
