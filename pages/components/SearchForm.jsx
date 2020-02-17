@@ -10,7 +10,11 @@ export default function SearchForm(props) {
 
   const handleSubmit = (event) => {
     props.setMovieResults([]);
-    props.submitGetMovies({ searchTitle: userInput, page: 1 });
+    props.setShowLoading(true);
+    setTimeout(() => {
+      props.setShowLoading(false);
+      props.submitGetMovies({ searchTitle: userInput, page: 1 });
+    }, 2500);
     event.preventDefault();
   };
 

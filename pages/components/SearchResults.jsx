@@ -2,11 +2,12 @@ import React from 'react';
 import { StyleSheet, css } from 'aphrodite/no-important';
 import { useInView, InView } from 'react-intersection-observer'
 import MovieItem from './MovieItem';
+import LoadingLogo from './LoadingLogo';
 
 export default function SearchResults(props) {
   const [ref, inView, entry] = useInView({
     rootMargin: '0px 100px',
-    threshold: 0,
+    threshold: 1,
   });
 
   const submitGetMovies = () => {
@@ -35,12 +36,16 @@ export default function SearchResults(props) {
     return (
       <div className={css(styles.container)}>
         <div className="movieWrapper" inView={inView}>
-          <div ref={ref} className={css(styles.resultsContainer)} >
-            {movieResults}
-            <EndOfList
-              submitGetMovies={submitGetMovies}
-            />
-          </div>
+          { props.showLoading ?
+            <LoadingLogo />
+            :
+            <div ref={ref} className={css(styles.resultsContainer)} >
+              {movieResults}
+              <EndOfList
+                submitGetMovies={submitGetMovies}
+              />
+            </div>
+          }
         </div>
       </div>
     );
@@ -57,7 +62,7 @@ const EndOfList = (props) => {
 
 const styles = StyleSheet.create({
   container: {
-    maxHeight: '80vh',
+    height: '600px',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',

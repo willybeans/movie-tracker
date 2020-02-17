@@ -10,6 +10,8 @@ class MyApp extends App {
   setSavedMovies = movie => {
     if (movie === 'clear') {
       this.setState({savedMovies: []});
+    } else if (movie.length > 1) {
+      this.setState({savedMovies: [...movie]});
     }
 
     let test = this.state.savedMovies.find( x => {

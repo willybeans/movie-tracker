@@ -8,7 +8,7 @@ import Layout from './components/Layout';
 function SearchContainer() {
   const [movieResults, setMovieResults] = useState([]);
   const [searchQuery, setSearchQuery] = useState({searchTitle: null, page: 1});
-
+  const [showLoading, setShowLoading] = useState(false)
   const submitGetMovies = (newSearch) => {
     if (newSearch) {
       let nextPage;
@@ -36,11 +36,13 @@ function SearchContainer() {
           submitGetMovies={submitGetMovies}
           movieResults={movieResults}
           setMovieResults={setMovieResults}
+          setShowLoading={setShowLoading}
         />
         <SearchResults
           movieResults={movieResults}
           submitGetMovies={submitGetMovies}
           searchQuery={searchQuery}
+          showLoading={showLoading}
         />
       </Layout>
     </div>
