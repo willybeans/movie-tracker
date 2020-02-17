@@ -11,21 +11,19 @@ function SearchContainer() {
   const [showLoading, setShowLoading] = useState(false)
   const submitGetMovies = (newSearch) => {
     if (newSearch) {
-      let nextPage;
-      if (searchQuery.searchTitle !== newSearch.searchTitle) {
-        setSearchQuery(newSearch);
-        setMovieResults([]);
-      } else {
-        setSearchQuery(newSearch);
-      }
-
       let titleQueryString = 's=';
       let pageString = '&page=' + newSearch.page;
 
       getMovies(titleQueryString + newSearch.searchTitle + pageString)
       .then( data => {
-        setMovieResults([...movieResults, ...data.data.Search]);
-      }).catch(e => e);
+        if (searchQuery.searchTitle !== newSearch.searchTitle) {
+          setMovieResults([...data.data.Search]);
+        } else {
+          setMovieResults(prevMovies => [...prevMovies, ...data.data.Search]);
+        }
+      }).then(setSearchQuery(newSearch))
+      .catch(e => e);
+
     }
   };
 
@@ -34,8 +32,6 @@ function SearchContainer() {
       <Layout>
         <SearchForm
           submitGetMovies={submitGetMovies}
-          movieResults={movieResults}
-          setMovieResults={setMovieResults}
           setShowLoading={setShowLoading}
         />
         <SearchResults
