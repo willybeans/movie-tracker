@@ -1,16 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import { StyleSheet, css } from 'aphrodite/no-important';
-import LoadingLogo from './components/LoadingLogo';
 import SearchForm from './components/SearchForm';
-import SavedMovies from './SavedMovies';
 import SearchResults from './components/SearchResults';
-import { getMovies } from './components/movieApi';
+import { getMovies } from './dataAccess/movieApi';
 import Layout from './components/Layout';
 
 function SearchContainer() {
-
   const [movieResults, setMovieResults] = useState([]);
-  const [savedMovies, setSavedMovies] = useState([]);
   const [searchQuery, setSearchQuery] = useState({searchTitle: null, page: 1});
 
   const submitGetMovies = (newSearch) => {
@@ -43,8 +39,6 @@ function SearchContainer() {
         />
         <SearchResults
           movieResults={movieResults}
-          savedMovies={savedMovies}
-          setSavedMovies={setSavedMovies}
           submitGetMovies={submitGetMovies}
           searchQuery={searchQuery}
         />
@@ -57,11 +51,14 @@ export default SearchContainer;
 
 const styles = StyleSheet.create({
   app: {
-    height: '100vh',
-    width: '100vw',
+    height: 'auto',
+    width: '100%',
     display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
     flexDirection: 'column',
   },
+  movieOuterWrap: {
+    display: 'flex',
+    flexDirection: 'row',
+    flex: 2
+  }
 });

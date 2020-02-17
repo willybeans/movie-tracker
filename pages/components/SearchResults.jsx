@@ -1,4 +1,4 @@
-import React, {useEffect, useState}  from 'react';
+import React from 'react';
 import { StyleSheet, css } from 'aphrodite/no-important';
 import { useInView, InView } from 'react-intersection-observer'
 import MovieItem from './MovieItem';
@@ -19,7 +19,7 @@ export default function SearchResults(props) {
   };
 
   if (props.movieResults) {
-    let movieResults = props.movieResults.map( movie => {
+    let movieResults = props.movieResults.map(movie => {
       return (
         <MovieItem
           key={movie.imdbID}
@@ -34,7 +34,6 @@ export default function SearchResults(props) {
     });
     return (
       <div className={css(styles.container)}>
-        <h2>Click Films to Save!</h2>
         <div className="movieWrapper" inView={inView}>
           <div ref={ref} className={css(styles.resultsContainer)} >
             {movieResults}
@@ -52,27 +51,24 @@ export default function SearchResults(props) {
 
 const EndOfList = (props) => {
   return (
-    <InView as="div" onChange={(inView, entry) => props.submitGetMovies()}>
-      <h2>Use onChange to monitor state.</h2>
-    </InView>
+    <InView as="div" onChange={(inView, entry) => props.submitGetMovies()} />
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    margin: '10px',
-    width: '90vw',
-    maxHeight: '300px',
+    maxHeight: '80vh',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    overflow: 'auto'
+    border: '1px solid #f1f1f1',
+    overflow: 'scroll'
   },
   resultsContainer: {
     display: 'flex',
     justifyContent: 'flex-start',
     flexDirection: 'column',
     alignItems: 'center',
-    height: '50%',
+    flex: 1
   },
 });

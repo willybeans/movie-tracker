@@ -1,8 +1,7 @@
-import React, {useEffect, useState}  from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, css } from 'aphrodite/no-important';
 
 export default function SearchForm(props) {
-
   const [userInput, setUserInput] = useState('');
 
   const handleChange = (event) => {
@@ -11,13 +10,13 @@ export default function SearchForm(props) {
 
   const handleSubmit = (event) => {
     props.setMovieResults([]);
-    props.submitGetMovies({searchTitle: userInput, page: 1});
+    props.submitGetMovies({ searchTitle: userInput, page: 1 });
     event.preventDefault();
   };
 
   return (
     <div className={css(styles.container)}>
-      <h2 className={css(styles.header)}>Search For A Movie!</h2>
+      <h2 className={css(styles.header)}>Search For A Movie And Click To Save!</h2>
       <form className={css(styles.form)} onSubmit={handleSubmit}>
         <input type="text" className={css(styles.textBox)} value={userInput} onChange={handleChange} />
         <input type="submit" value="SUBMIT" className={css(styles.button)} />
@@ -33,9 +32,11 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    alignContent: 'center'
   },
   header: {
     fontSize: '20px',
+    maxWidth: '50vw'
   },
   form: {
     position: 'relative',
@@ -45,10 +46,10 @@ const styles = StyleSheet.create({
     width: '100%',
     maxWidth: '360px',
     margin: '10px',
-    padding: '20px'
+    padding: '20px',
+    flex: 2,
   },
   button: {
-    width: '80px',
     height: '40px',
     backgroundColor: '#e0e0e0',
     border: '2px solid black',
@@ -60,9 +61,11 @@ const styles = StyleSheet.create({
   },
   textBox: {
     height: '50px',
-    width: '100%',
+    width: 'auto',
     fontSize: '20px',
     border: '2px solid black',
-    borderRadius: '8px'
+    borderRadius: '8px',
+    whiteSpace: 'nowrap',
+    width: '100%'
   }
 });
